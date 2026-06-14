@@ -112,6 +112,103 @@
             overflow: hidden;
         }
 
+        /* ===== 版权声明弹窗 ===== */
+        .license-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            display: flex;
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .license-modal.hidden {
+            display: none;
+        }
+        .license-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            padding: 24px;
+            border-radius: 16px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+        }
+        .license-title {
+            text-align: center;
+            font-size: clamp(20px, 3vw, 26px);
+            font-weight: bold;
+            color: var(--btn-dark);
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--btn-primary);
+            padding-bottom: 10px;
+        }
+        .license-body {
+            font-size: clamp(14px, 2vw, 16px);
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .license-body h3 {
+            font-size: clamp(16px, 2.2vw, 18px);
+            color: var(--btn-dark);
+            margin: 14px 0 8px;
+        }
+        .license-body p {
+            margin-bottom: 8px;
+            text-indent: 2em;
+        }
+        .license-body .highlight {
+            color: var(--btn-danger);
+            font-weight: bold;
+        }
+        .license-body .contact {
+            background: #f8f9fa;
+            border-left: 4px solid var(--btn-primary);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .license-body .contact strong {
+            color: var(--btn-primary);
+        }
+        .license-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .license-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: clamp(16px, 2.2vw, 18px);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .license-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .license-btn:active {
+            transform: translateY(0);
+        }
+        .license-btn-agree {
+            background: var(--btn-success);
+            color: white;
+        }
+        .license-btn-disagree {
+            background: var(--btn-danger);
+            color: white;
+        }
+
         /* ===== 顶部输入区域 ===== */
         .input-wrapper {
             width: 100%;
@@ -508,8 +605,56 @@
             font-weight: bold;
         }
     </style>
+<base target="_blank">
 </head>
 <body>
+    <!-- 版权声明弹窗 -->
+    <div class="license-modal" id="licenseModal">
+        <div class="license-content">
+            <h2 class="license-title">&#128220; 最终用户许可协议</h2>
+            <div class="license-body">
+                <h3>1. 隐私声明</h3>
+                <p>本应用（无障碍辅助发声工具）<span class="highlight">完全在您的浏览器前端运行</span>，所有数据处理均在本地完成。应用<span class="highlight">不收集、不上传、不存储</span>任何用户个人信息、语音数据或使用记录。您的隐私完全由您自己掌控。</p>
+
+                <h3>2. 版权声明</h3>
+                <p>本软件及其所有组件（包括但不限于代码、设计、界面、文档）的著作权归 <span class="highlight">"一刀"</span> 所有。</p>
+                <p>版权所有 &#169; 2026 一刀。保留所有权利。</p>
+
+                <h3>3. 使用许可</h3>
+                <p>本软件授予您非独家的、不可转让的个人使用许可，您可以将本软件用于个人学习、研究和非商业用途。</p>
+
+                <h3>4. 禁止行为</h3>
+                <p><span class="highlight">未经版权方书面同意，严禁以下行为：</span></p>
+                <p>（1）将本软件用于任何商业目的或转售；</p>
+                <p>（2）对本软件进行逆向工程、反编译、反汇编或试图获取源代码；</p>
+                <p>（3）复制、分发、传播、出租、出借或转售本软件的任何部分；</p>
+                <p>（4）修改、翻译、改编本软件，或创建衍生作品；</p>
+                <p>（5）移除或修改软件中的版权声明和许可信息。</p>
+
+                <h3>5. 免责声明</h3>
+                <p>本软件按"原样"提供，不作任何明示或暗示的担保。开发者不对因使用本软件导致的任何数据丢失、设备损坏或间接损失承担责任。</p>
+
+                <h3>6. 终止条款</h3>
+                <p>若您违反本协议任何条款，许可将自动终止。终止后，您必须立即停止使用并删除本软件的所有副本。</p>
+
+                <div class="contact">
+                    <strong>&#128172; 服务与支持</strong><br>
+                    如有需求、服务问题或合作意向，请联系管理员：<br>
+                    <strong>微信号：sgliu02</strong>
+                </div>
+
+                <p style="text-align:center; margin-top:16px; font-weight:bold; color:var(--btn-danger);">
+                    点击"同意"即表示您已阅读并同意遵守以上条款。<br>
+                    点击"不同意"将退出应用。
+                </p>
+            </div>
+            <div class="license-buttons">
+                <button class="license-btn license-btn-agree" onclick="agreeLicense()">&#9989; 同意并继续使用</button>
+                <button class="license-btn license-btn-disagree" onclick="disagreeLicense()">&#10060; 不同意，退出</button>
+            </div>
+        </div>
+    </div>
+
     <div class="app-wrapper">
         <div class="app-frame">
             <div class="container">
@@ -685,6 +830,59 @@
             green: { bg: '#e8f5e9', panel: '#d4edda', menu: '#a9dfbf', edit: '#d5f5e3', page: '#abebc6', text: '#1e8449' },
             dark: { bg: '#2c3e50', panel: '#34495e', menu: '#1a252f', edit: '#283747', page: '#212f3d', text: '#ecf0f1' }
         };
+
+        // ===== 版权声明处理 =====
+        function checkLicense() {
+            const agreed = localStorage.getItem('licenseAgreed');
+            if(agreed === 'true') {
+                document.getElementById('licenseModal').classList.add('hidden');
+                initApp();
+            }
+        }
+
+        function agreeLicense() {
+            localStorage.setItem('licenseAgreed', 'true');
+            document.getElementById('licenseModal').classList.add('hidden');
+            initApp();
+        }
+
+        function disagreeLicense() {
+            if(confirm('您不同意许可协议，应用将关闭。确定要退出吗？')) {
+                // 尝试关闭窗口
+                try {
+                    window.close();
+                } catch(e) {
+                    // 部分浏览器不允许脚本关闭窗口
+                }
+                // 清空页面内容并显示退出信息
+                document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#f5f5f5;font-size:20px;font-weight:bold;color:#e74c3c;">您已拒绝许可协议，应用已关闭。<br>如需使用请重新打开页面并同意协议。</div>';
+            }
+        }
+
+        // ===== 应用初始化 =====
+        function initApp() {
+            initStorage();
+            renderPhrases();
+            setTimeout(initVoices, 100);
+
+            document.getElementById('voiceModal').addEventListener('click', function(e) {
+                if(e.target === document.getElementById('voiceModal')) closeVoiceModal();
+            });
+            document.getElementById('callModal').addEventListener('click', function(e) {
+                if(e.target === document.getElementById('callModal')) closeCallModal();
+            });
+            document.getElementById('settingsModal').addEventListener('click', function(e) {
+                if(e.target === document.getElementById('settingsModal')) closeSettingsModal();
+            });
+
+            initTextInputKeydown();
+
+            document.addEventListener('click', function() {
+                if(window.AudioContext && !window.audioContextInit) {
+                    window.audioContextInit = new (window.AudioContext || webkitAudioContext)();
+                }
+            }, { once: true });
+        }
 
         function initStorage() {
             const customData = localStorage.getItem('customPhrases');
@@ -1288,28 +1486,9 @@
             });
         }
 
+        // 页面加载时先检查许可协议
         window.onload = function() {
-            initStorage();
-            renderPhrases();
-            setTimeout(initVoices, 100);
-
-            document.getElementById('voiceModal').addEventListener('click', function(e) {
-                if(e.target === document.getElementById('voiceModal')) closeVoiceModal();
-            });
-            document.getElementById('callModal').addEventListener('click', function(e) {
-                if(e.target === document.getElementById('callModal')) closeCallModal();
-            });
-            document.getElementById('settingsModal').addEventListener('click', function(e) {
-                if(e.target === document.getElementById('settingsModal')) closeSettingsModal();
-            });
-
-            initTextInputKeydown();
-
-            document.addEventListener('click', function() {
-                if(window.AudioContext && !window.audioContextInit) {
-                    window.audioContextInit = new (window.AudioContext || webkitAudioContext)();
-                }
-            }, { once: true });
+            checkLicense();
         };
 
         window.onbeforeunload = function() {
